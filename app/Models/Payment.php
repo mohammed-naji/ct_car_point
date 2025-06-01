@@ -9,4 +9,14 @@ class Payment extends Model
     //
 
     protected $guarded = [];
+
+    function user()
+    {
+        return $this->belongsTo(User::class)->withDefault();
+    }
+
+    function part()
+    {
+        return $this->belongsTo(Part::class)->withDefault();
+    }
 }

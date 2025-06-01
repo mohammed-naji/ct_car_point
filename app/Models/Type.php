@@ -9,4 +9,9 @@ class Type extends Model
     //
 
     protected $guarded = [];
+
+    function parts()
+    {
+        return $this->hasMany(Part::class);
+    }
 }
