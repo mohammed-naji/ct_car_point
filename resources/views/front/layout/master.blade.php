@@ -15,6 +15,23 @@
 
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+    @if (app()->getLocale() == 'ar')
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&display=swap');
+
+            * {
+                font-family: "IBM Plex Sans Arabic", sans-serif;
+            }
+
+            body {
+                direction: rtl;
+                text-align: right;
+
+
+            }
+        </style>
+    @endif
+
     <!-- Box Icons -->
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -42,15 +59,32 @@
 
             <ul class="navbar">
 
-                <li><a href="#home" class="active">Home</a></li>
+                <li><a href="#home" class="active">{{ __('website.nav.home') }}</a></li>
 
-                <li><a href="#cars">Cars</a></li>
+                <li><a href="#cars">{{ __('website.nav.cars') }}</a></li>
 
-                <li><a href="#about">About</a></li>
+                <li><a href="#about">{{ __('website.nav.about') }}</a></li>
 
-                <li><a href="#parts">Parts</a></li>
+                <li><a href="#parts">{{ __('website.nav.parts') }}</a></li>
 
-                <li><a href="#blog">Our Blog</a></li>
+                <li><a href="#blog">{{ __('website.nav.blogs') }}</a></li>
+
+                @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                    @if ($localeCode != app()->getLocale())
+                        <li>
+                            <a rel="alternate" hreflang="{{ $localeCode }}"
+                                href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                {{-- @if ($localeCode == 'ar')
+                                    <img width="30" src="{{ asset('flags/ps.png') }}" alt="">
+                                @else
+                                    <img width="30" src="{{ asset('flags/uk.webp') }}" alt="">
+                                @endif
+ --}}
+                                <img width="30" src="{{ asset('flags/' . $properties['flag']) }}" alt="">
+                            </a>
+                        </li>
+                    @endif
+                @endforeach
 
             </ul>
             <i class='bx bx-search' id="search-icon"></i>

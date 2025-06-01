@@ -2,15 +2,22 @@
 
 @section('title', 'Homepage | ' . env('APP_NAME'))
 
-@section('content')
+@section('css')
+    <style>
+        .home-text h1 {
+            width: 60%;
+        }
+    </style>
+@endsection
 
+@section('content')
     <!-- Home -->
     <section class="home" id="home">
         <div class="home-text">
-            <h1>We Have Everything <br>Your<span> Car</span> Need</h1>
-            <p>Lorem ipsum dolor sit amet consectetur <br> adipisicing elit. Nulla, corporis.</p>
+            <h1>{{ __('website.hero') }} <span>{{ __('website.car') }}</span> {{ __('website.need') }}</h1>
+            <p>{{ __('website.hero_text') }}</p>
             <!-- Home BUtton -->
-            <a href="#" class="btn">Discover Now</a>
+            <a href="#" class="btn">{{ __('website.hero_btn') }}</a>
         </div>
     </section>
     <!-- Cars Section -->
