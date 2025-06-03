@@ -8,6 +8,14 @@
             width: 60%;
         }
     </style>
+
+    @if (app()->getLocale() == 'ar')
+        <style>
+            .home {
+                background-image: url({{ asset('assets/img/Background-home-ar.png') }})
+            }
+        </style>
+    @endif
 @endsection
 
 @section('content')
