@@ -15,7 +15,14 @@
             <form action="{{ route('dashboard.types.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
-                <x-input name="name" label="Name" placeholder="Enter Type Name" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-input name="name_en" label="English Name" placeholder="Enter Type Name" />
+                    </div>
+                    <div class="col-md-6">
+                        <x-input name="name_ar" label="Arabic Name" placeholder="Enter Type Name" />
+                    </div>
+                </div>
 
                 <x-input type="file" name="image" label="Image" />
 

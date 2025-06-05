@@ -1,7 +1,7 @@
 <ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('front.index') }}">
         <div class="sidebar-brand-icon">
             <i class="fas fa-car"></i>
         </div>
@@ -12,8 +12,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('dashboard.index') }}">
+    <li class="nav-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
     </li>
@@ -45,16 +45,22 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseParts"
-            aria-expanded="true" aria-controls="collapseParts">
+    <li
+        class="nav-item {{ request()->routeIs('dashboard.parts.index') || request()->routeIs('dashboard.parts.create') ? 'active' : '' }}">
+        <a class="nav-link {{ request()->routeIs('dashboard.parts.index') || request()->routeIs('dashboard.parts.create') ? '' : 'collapsed' }}"
+            href="#" data-toggle="collapse" data-target="#collapseParts" aria-expanded="true"
+            aria-controls="collapseParts">
             <i class="fas fa-fw fa-cogs"></i>
             <span>Parts</span>
         </a>
-        <div id="collapseParts" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseParts"
+            class="collapse {{ request()->routeIs('dashboard.parts.index') || request()->routeIs('dashboard.parts.create') ? 'show' : '' }}"
+            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="buttons.html">All Parts</a>
-                <a class="collapse-item" href="cards.html">Add New</a>
+                <a class="collapse-item {{ request()->routeIs('dashboard.parts.index') ? 'active' : '' }}"
+                    href="{{ route('dashboard.parts.index') }}">All Parts</a>
+                <a class="collapse-item {{ request()->routeIs('dashboard.parts.create') ? 'active' : '' }}"
+                    href="{{ route('dashboard.parts.create') }}">Add New</a>
             </div>
         </div>
     </li>
@@ -86,10 +92,11 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('dashboard.index') }}">
+    {{-- @dump(str_contains(request()->url(), 'dashboard/customers')) --}}
+    <li class="nav-item {{ str_contains(request()->url(), 'dashboard/customers') ? 'active' : '' }}">
+        <a class="nav-link " href="{{ route('dashboard.customers') }}">
             <i class="fas fa-fw fa-users"></i>
-            <span>Users</span></a>
+            <span>Customers</span></a>
     </li>
 
     <!-- Divider -->
@@ -97,7 +104,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="{{ route('dashboard.index') }}">
+        <a class="nav-link" href="{{ route('dashboard') }}">
             <i class="fas fa-fw fa-credit-card"></i>
             <span>Payments</span></a>
     </li>

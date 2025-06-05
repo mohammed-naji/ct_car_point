@@ -16,7 +16,17 @@
                 @csrf
                 @method('put')
 
-                <x-input name="name" label="Name" placeholder="Enter Type Name" value="{{ $type->name }}" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-input name="name_en" label="English Name" placeholder="Enter Type English Name"
+                            value="{{ $type->name_en }}" />
+                    </div>
+                    <div class="col-md-6">
+                        <x-input name="name_ar" label="Arabic Name" placeholder="Enter Type Arabic Name"
+                            value="{{ $type->name_ar }}" />
+                    </div>
+                </div>
+
 
                 <x-input type="file" name="image" label="Image" value="{{ $type->image }}" />
 

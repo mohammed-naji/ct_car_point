@@ -68,6 +68,17 @@
                 <li><a href="#parts">{{ __('website.nav.parts') }}</a></li>
 
                 <li><a href="#blog">{{ __('website.nav.blogs') }}</a></li>
+                {{-- @dump(auth()->check()) --}}
+                @if (auth()->check())
+                    <li><a onclick="event.preventDefault();document.querySelector('#logout-form').submit()"
+                            href="{{ route('logout') }}">{{ __('website.nav.logout') }}</a></li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                        @csrf
+                    </form>
+                @else
+                    <li><a href="{{ route('login') }}">{{ __('website.nav.login') }}</a></li>
+                @endif
+
 
                 @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
                     @if ($localeCode != app()->getLocale())

@@ -61,7 +61,7 @@
                             <td>{{ $type->id }}</td>
                             <td><img width="80" class="img-thumbnail" src="{{ asset('storage/' . $type->image) }}"
                                     alt=""></td>
-                            <td>{{ $type->name }}</td>
+                            <td>{{ $type->trans_name }}</td>
                             <td>{{ $type->created_at->toDateString() }}</td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="{{ route('dashboard.types.edit', $type->id) }}"><i

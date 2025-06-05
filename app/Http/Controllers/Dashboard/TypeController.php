@@ -34,18 +34,31 @@ class TypeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|max:100',
+            'name_en' => 'required|max:100',
+            'name_ar' => 'required|max:100',
             'image' => 'required|image|mimes:png,jpg,jpeg,svg'
         ]);
 
+        // dd($request->all());
         // 2. store file
         $path = $request->file('image')->store('uploads', 'public');
 
         // 3. store in database
         Type::create([
-            'name' => $request->name,
+            // 'name' => json_encode([
+            //     'en' => $request->name_en,
+            //     'ar' => $request->name_ar,
+            // ], JSON_UNESCAPED_UNICODE),
+            'name' => [
+                'en' => $request->name_en,
+                'ar' => $request->name_ar,
+            ],
             'image' => $path
         ]);
+
+        // 1. double column => name_en, name_ar
+        // 2. double row => lang
+        // 3. JSON column
 
         // 4. redirect with message
         return redirect()
@@ -68,7 +81,8 @@ class TypeController extends Controller
     public function update(Request $request, Type $type)
     {
         $request->validate([
-            'name' => 'required|max:100',
+            'name_en' => 'required|max:100',
+            'name_ar' => 'required|max:100',
             'image' => 'nullable|image|mimes:png,jpg,jpeg,svg'
         ]);
 
@@ -80,7 +94,10 @@ class TypeController extends Controller
 
         // 3. store in database
         $type->update([
-            'name' => $request->name,
+            'name' => [
+                'en' => $request->name_en,
+                'ar' => $request->name_ar,
+            ],
             'image' => $path ?? $type->image
         ]);
 

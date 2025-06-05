@@ -25,6 +25,26 @@
             vertical-align: middle
         }
     </style>
+    @if (app()->getLocale() == 'ar')
+        <style>
+            body {
+                direction: rtl;
+                text-align: right;
+            }
+
+            .sidebar {
+                padding: 0
+            }
+
+            .sidebar .nav-item .nav-link {
+                text-align: right;
+            }
+
+            .sidebar .nav-item .nav-link[data-toggle=collapse]::after {
+                float: left;
+            }
+        </style>
+    @endif
     @yield('css')
 </head>
 
@@ -52,8 +72,19 @@
                     </button>
 
                     <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav {{ app()->getLocale() == 'ar' ? 'mr-auto' : 'ml-auto' }} ">
 
+                        @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                            @if ($localeCode != app()->getLocale())
+                                <li class="nav-item">
+                                    <a class="nav-link" rel="alternate" hreflang="{{ $localeCode }}"
+                                        href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                        <img width="30" src="{{ asset('flags/' . $properties['flag']) }}"
+                                            alt="">
+                                    </a>
+                                </li>
+                            @endif
+                        @endforeach
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
@@ -113,18 +144,19 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
                                 <img class="img-profile rounded-circle"
-                                    src="{{ asset('adminassets/img/undraw_profile.svg') }}">
+                                    src="https://ui-avatars.com/api/?background=random&name={{ Auth::user()->name }}">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('profile.edit') }}">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ route('dashboard.settings') }}">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Settings
                                 </a>
@@ -133,10 +165,16 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                {{-- <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
-                                </a>
+                                </a> --}}
+                                <form action="{{ route('logout') }}" method="POST">
+                                    @csrf
+                                    <button class="dropdown-item"><i
+                                            class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                        Logout</button>
+                                </form>
                             </div>
                         </li>
 

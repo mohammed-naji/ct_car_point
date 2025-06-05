@@ -11,5 +11,7 @@ return [
         'about' => 'About Us',
         'parts' => 'Parts',
         'blogs' => 'Our Blog',
-    ]
+        'login' => 'Login',
+        'logout' => 'Logout'
+    ],
 ];
