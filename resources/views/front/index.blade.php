@@ -34,65 +34,23 @@
 
         <div class="heading">
 
-            <span>All Cars</span>
-
-            <h2>We have all types cars</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, aperiam!</p>
+            <span>{{ __('website.types_subtitle') }}</span>
+            <h2>{{ __('website.types_title') }}</h2>
+            <p>{{ __('website.types_desc') }}</p>
             <!-- Cars Container -->
 
             <div class="cars-container container">
+                @foreach ($types as $type)
+                    <div class="box">
+                        <a href="{{ route('front.type', $type->id) }}">
+                            <img src="{{ asset('storage/' . $type->image) }}" alt="">
 
-                <!-- Box 1 -->
+                            <h2>{{ $type->trans_name }}</h2>
+                        </a>
+                    </div>
+                @endforeach
 
-                <div class="box">
 
-                    <img src="{{ asset('assets/img/car1.jpg') }}" alt="">
-
-                    <h2>Porche Car</h2>
-
-                </div>
-
-                <!-- Box 2 -->
-
-                <div class="box">
-
-                    <img src="{{ asset('assets/img/car2.jpg') }}" alt="">
-                    <h2>Porche Car</h2 car2.jpg>
-
-                </div>
-
-                <!-- Box 3 -->
-
-                <div class="box">
-                    <img src="{{ asset('assets/img/car3.jpg') }}" alt="">
-
-                    <h2>Porche Car</h2>
-
-                </div>
-                <!-- Box 4 -->
-
-                <div class="box">
-                    <img src="{{ asset('assets/img/car4.jpg') }}" alt="">
-
-                    <h2>Porche Car</h2>
-
-                </div>
-                <!-- Box 5 -->
-
-                <div class="box">
-                    <img src="{{ asset('assets/img/car5.jpg') }}" alt="">
-
-                    <h2>Porche Car</h2>
-
-                </div>
-                <!-- Box 6 -->
-
-                <div class="box">
-                    <img src="{{ asset('assets/img/car6.jpg') }}" alt="">
-
-                    <h2>Porche Car</h2>
-
-                </div>
             </div>
     </section>
 
@@ -124,120 +82,18 @@
 
         <div class="heading">
 
-            <span>What We Offer</span>
+            <span>{{ __('website.parts_subtitle') }}</span>
 
-            <h2>Our Car Is Always Excellent</h2>
+            <h2>{{ __('website.parts_title') }}</h2>
 
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, doloremque.</p>
+            <p>{{ __('website.parts_desc') }}</p>
         </div>
         <!-- Parts Container -->
 
         <div class="parts-container container">
-
-            <!-- Box 1 -->
-
-            <div class="box">
-
-                <img src="{{ asset('assets/img/part1.png') }}" alt="">
-
-                <h3>Auto Spare Parts</h3>
-
-                <span>$149.99</span>
-
-                <i class='bx bxs-star'>(6 Reviews)</i>
-
-                <a href="#" class="btn">Buy Now</a>
-
-                <a href="{{ route('front.part', 1) }}" class="details">View Details</a>
-
-            </div>
-            <!-- Box 2 -->
-
-            <div class="box">
-
-                <img src="{{ asset('assets/img/part2.png') }}" alt="">
-
-                <h3>Auto Spare Parts</h3>
-
-                <span>$119.99</span>
-
-                <i class='bx bxs-star'>(6 Reviews)</i>
-
-                <a href="#" class="btn">Buy Now</a>
-
-                <a href="#" class="details">View Details</a>
-
-            </div>
-            <!-- Box 3 -->
-
-            <div class="box">
-
-                <img src="{{ asset('assets/img/part3.png') }}" alt="">
-
-                <h3>Auto Spare Parts</h3>
-
-                <span>$129.99</span>
-
-                <i class='bx bxs-star'>(6 Reviews)</i>
-
-                <a href="#" class="btn">Buy Now</a>
-
-                <a href="#" class="details">View Details</a>
-
-            </div>
-            <!-- Box 4 -->
-
-            <div class="box">
-
-                <img src="{{ asset('assets/img/part4.png') }}" alt="">
-
-                <h3>Auto Spare Parts</h3>
-
-                <span>$109.99</span>
-
-                <i class='bx bxs-star'>(6 Reviews)</i>
-
-                <a href="#" class="btn">Buy Now</a>
-
-                <a href="#" class="details">View Details</a>
-
-            </div>
-            <!-- Box 5 -->
-
-            <div class="box">
-
-                <img src="{{ asset('assets/img/part5.png') }}" alt="">
-
-                <h3>Auto Spare Parts</h3>
-
-                <span>$99.99</span>
-
-                <i class='bx bxs-star'>(6 Reviews)</i>
-
-                <a href="#" class="btn">Buy Now</a>
-
-                <a href="#" class="details">View Details</a>
-
-            </div>
-            <!-- Box 6 -->
-
-            <div class="box">
-
-                <img src="{{ asset('assets/img/part6.png') }}" alt="">
-
-                <h3>Auto Spare Parts</h3>
-
-                <span>$109.99</span>
-
-                <i class='bx bxs-star'>(6 Reviews)</i>
-
-                <a href="#" class="btn">Buy Now</a>
-
-                <a href="#" class="details">View Details</a>
-
-            </div>
-
-
+            @foreach ($parts as $part)
+                @include('front.parts.box')
+            @endforeach
         </div>
 
     </section>

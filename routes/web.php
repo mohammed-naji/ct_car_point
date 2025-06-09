@@ -7,7 +7,8 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 Route::prefix(LaravelLocalization::setLocale())->group(function () {
     Route::get('/', [FrontController::class, 'index'])->name('front.index');
-    Route::get('/part/{id}', [FrontController::class, 'part'])->name('front.part');
+    Route::get('/type/{type}', [FrontController::class, 'type'])->name('front.type');
+    Route::get('/part/{part}', [FrontController::class, 'part'])->name('front.part');
     Route::get('/blog/{id}', [FrontController::class, 'blog'])->name('front.blog');
 });
 

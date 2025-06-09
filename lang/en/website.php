@@ -14,4 +14,15 @@ return [
         'login' => 'Login',
         'logout' => 'Logout'
     ],
+    'types_subtitle' => 'All Cars',
+    'types_title' => 'We have all types cars',
+    'types_desc' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum, aperiam!',
+    'parts_subtitle' => 'What We Offer',
+    'parts_title' => 'Our Car Is Always Excellent',
+    'parts_desc' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, doloremque.',
+    'buy_now' => 'Buy Now',
+    'view' => 'View Details',
+    'related' => 'Related Parts'
+
+
 ];

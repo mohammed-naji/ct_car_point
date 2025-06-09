@@ -29,8 +29,26 @@
 
 
             }
+
+            .parts-container .box .details {
+                left: 1rem;
+                right: unset
+            }
         </style>
     @endif
+
+    <style>
+        .parts-container .box del {
+            text-decoration: line-through;
+            font-size: 14px;
+            color: #6e6e6e;
+            margin: 0 3px;
+        }
+
+        .parts-container .box {
+            flex: 0 1 31%;
+        }
+    </style>
 
     <!-- Box Icons -->
 
@@ -53,21 +71,21 @@
 
             <!-- Logo -->
 
-            <a href="#" class="logo">Car<span>Point</span></a>
+            <a href="{{ route('front.index') }}#" class="logo">Car<span>Point</span></a>
 
             <!-- Nav List -->
 
             <ul class="navbar">
 
-                <li><a href="#home" class="active">{{ __('website.nav.home') }}</a></li>
+                <li><a href="{{ route('front.index') }}#home" class="active">{{ __('website.nav.home') }}</a></li>
 
-                <li><a href="#cars">{{ __('website.nav.cars') }}</a></li>
+                <li><a href="{{ route('front.index') }}#cars">{{ __('website.nav.cars') }}</a></li>
 
-                <li><a href="#about">{{ __('website.nav.about') }}</a></li>
+                <li><a href="{{ route('front.index') }}#about">{{ __('website.nav.about') }}</a></li>
 
-                <li><a href="#parts">{{ __('website.nav.parts') }}</a></li>
+                <li><a href="{{ route('front.index') }}#parts">{{ __('website.nav.parts') }}</a></li>
 
-                <li><a href="#blog">{{ __('website.nav.blogs') }}</a></li>
+                <li><a href="{{ route('front.index') }}#blog">{{ __('website.nav.blogs') }}</a></li>
                 {{-- @dump(auth()->check()) --}}
                 @if (auth()->check())
                     <li><a onclick="event.preventDefault();document.querySelector('#logout-form').submit()"

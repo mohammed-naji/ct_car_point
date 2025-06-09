@@ -41,7 +41,7 @@
                                     alt=""></td>
                             <td>{{ $part->trans_name }}</td>
                             <td>{{ $part->price }}</td>
-                            <td>{{ $part->type_id }}</td>
+                            <td>{{ $part->type->trans_name }}</td>
                             <td>{{ $part->created_at->toDateString() }}</td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="{{ route('dashboard.parts.edit', $part->id) }}"><i

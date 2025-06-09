@@ -24,7 +24,14 @@
 
                 <x-input type="file" name="image" label="Image" />
 
-                <x-input type="number" name="price" label="Price" placeholder="Enter Price" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-input type="number" name="price" label="Price" placeholder="Enter Price" />
+                    </div>
+                    <div class="col-md-6">
+                        <x-input type="number" name="sale_price" label="Sale Price" placeholder="Enter Sale Price" />
+                    </div>
+                </div>
 
                 <div class="row">
                     <div class="col-md-6">

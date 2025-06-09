@@ -7,6 +7,7 @@ use App\Http\Requests\PartRequest;
 use App\Models\Part;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PartController extends Controller
 {
@@ -44,6 +45,7 @@ class PartController extends Controller
             ],
             'image' => $path,
             'price' => $request->price,
+            'sale_price' => $request->sale_price,
             'description' => [
                 'en' => $request->description_en,
                 'ar' => $request->description_ar,
@@ -78,8 +80,14 @@ class PartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Part $part)
     {
-        //
+        Storage::disk('public')->delete($part->image);
+        $part->delete();
+
+        return redirect()
+            ->route('dashboard.parts.index')
+            ->with('msg', 'Type deleted successfully')
+            ->with('type', 'danger');
     }
 }
