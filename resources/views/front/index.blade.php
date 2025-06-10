@@ -58,21 +58,26 @@
     <section class="about container" id="about">
 
         <div class="about-img">
-            <img src="{{ asset('assets/img/about.png') }}" alt="">
+
+            @php
+                $src = 'assets/img/about.png';
+                if (isset($settings['about_image'])) {
+                    $src = 'storage/' . $settings['about_image'];
+                }
+            @endphp
+            <img src="{{ asset($src) }}" alt="">
         </div>
 
         <div class="about-text">
-            <span>About Us</span>
+            <span>{{ $settings['about_subtitle_' . app()->getLocale()] ?? 'About Us' }}</span>
 
-            <h2>Cheap Prices with <br>Quality Cars</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed laborum blanditiis ratione numquam odio ea!
+            <h2>{{ $settings['about_title_' . app()->getLocale()] ?? 'Cheap Prices with Quality Cars' }} </h2>
+            <p>{{ $settings['about_desc_' . app()->getLocale()] ?? 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero, facere nam quo magni culpa esse.' }}
             </p>
 
-            :
+            {{-- :
 
-            <!-- About Button -->
-
-            <a href="#" class="btn">Learn More</a>
+            <a href="#" class="btn">Learn More</a> --}}
 
         </div>
     </section>
@@ -101,36 +106,24 @@
     <!-- Blog Container -->
     <section class="blog" id="blog">
         <div class="heading">
-            <span>Blog & News</span>
-            <h2>Our Blog Content</h2>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, doloremque.</p>
+            <span>{{ __('website.blog_subtitle') }}</span>
+            <h2>{{ __('website.blog_title') }}</h2>
+            <p>{{ __('website.blog_desc') }}</p>
         </div>
         <!-- Blog Container -->
         <div class="blog-container container">
-            <!-- Box 1 -->
-            <div class="box">
-                <img src="{{ asset('assets/img/car1.jpg') }}" alt="">
-                <span>Feb 14 2022</span>
-                <h3>How To Get Perfect Car At Low Price</h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo, veniam.</p>
-                <a href="{{ route('front.blog', 1) }}" class="blog-btn">Read More<i class='bx bx-right-arrow-alt'></i></a>
-            </div>
-            <!-- Box 2 -->
-            <div class="box">
-                <img src="{{ asset('assets/img/car2.jpg') }}" alt="">
-                <span>March 16 2022</span>
-                <h3>How To Get Perfect Car At Low Price</h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo, veniam.</p>
-                <a href="#" class="blog-btn">Read More<i class='bx bx-right-arrow-alt'></i></a>
-            </div>
-            <!-- Box 3 -->
-            <div class="box">
-                <img src="{{ asset('assets/img/car3.jpg') }}" alt="">
-                <span>May 15 2022</span>
-                <h3>How To Get Perfect Car At Low Price</h3>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Explicabo, veniam.</p>
-                <a href="#" class="blog-btn">Read More<i class='bx bx-right-arrow-alt'></i></a>
-            </div>
+            @foreach ($blogs as $blog)
+                <div class="box">
+                    <img src="{{ asset('storage/' . $blog->image) }}" alt="">
+                    <span>{{ $blog->created_at->format('M d Y') }}</span>
+                    <h3>{{ $blog->trans_title }}</h3>
+                    <p>{{ Str::words(strip_tags($blog->trans_description), 10, '...') }}</p>
+                    <a href="{{ route('front.blog', $blog->slug) }}" class="blog-btn">{{ __('website.read_more') }} <i
+                            class='bx bx-{{ app()->getLocale() == 'ar' ? 'left' : 'right' }}-arrow-alt'></i></a>
+                </div>
+            @endforeach
+
+
         </div>
     </section>
 @endsection

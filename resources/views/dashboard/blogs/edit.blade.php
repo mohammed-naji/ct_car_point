@@ -16,16 +16,44 @@
                 @csrf
                 @method('put')
 
-                <x-input name="title" label="Title" placeholder="Enter Blog Name" value="{{ $blog->title }}" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-input name="title_en" label="English Title" placeholder="Enter Blog English Name"
+                            value="{{ $blog->title_en }}" />
+                    </div>
+
+                    <div class="col-md-6">
+                        <x-input name="title_ar" label="Arabic Title" placeholder="Enter Blog Arabic Name"
+                            value="{{ $blog->title_ar }}" />
+                    </div>
+                </div>
 
                 <x-input type="file" name="image" label="Image" value="{{ $blog->image }}" />
 
-                <x-textarea name="description" label="Description" placeholder="Enter Blog Description"
-                    value="{{ $blog->description }}" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-textarea name="description_en" label="English Description"
+                            placeholder="Enter Blog English Description" :value="$blog->description_en" />
+                    </div>
+                    <div class="col-md-6">
+                        <x-textarea name="description_ar" label="Arabic Description"
+                            placeholder="Enter Blog Arabic Description" :value="$blog->description_ar" />
+                    </div>
+                </div>
 
                 <button class="btn btn-dark"><i class="fas fa-save"></i> Update</button>
 
             </form>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.6.1/tinymce.min.js"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+        });
+    </script>
 @endsection

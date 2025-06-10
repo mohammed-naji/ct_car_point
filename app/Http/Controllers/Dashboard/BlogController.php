@@ -35,9 +35,11 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|max:100|unique:blogs,title',
+            'title_en' => 'required|max:100|unique:blogs,title->en',
+            'title_ar' => 'required|max:100|unique:blogs,title->ar',
             'image' => 'required|image|mimes:png,jpg,jpeg,svg',
-            'description' => 'required|max:100',
+            'description_en' => 'required',
+            'description_ar' => 'required',
         ]);
 
         // 2. store file
@@ -45,10 +47,16 @@ class BlogController extends Controller
 
         // 3. store in database
         Blog::create([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title),
+            'title' => [
+                'en' => $request->title_en,
+                'ar' => $request->title_ar,
+            ],
+            'slug' => Str::slug($request->title_en),
             'image' => $path,
-            'description' => $request->description
+            'description' => [
+                'en' => $request->description_en,
+                'ar' => $request->description_ar,
+            ]
         ]);
 
         // 4. redirect with message
@@ -71,10 +79,13 @@ class BlogController extends Controller
      */
     public function update(Request $request, Blog $blog)
     {
+
         $request->validate([
-            'title' => 'required|max:100|unique:blogs,title,' . $blog->id,
+            'title_en' => 'required|max:100|unique:blogs,title->en' . $blog->id,
+            'title_ar' => 'required|max:100|unique:blogs,title->ar' . $blog->id,
             'image' => 'nullable|image|mimes:png,jpg,jpeg,svg',
-            'description' => 'required|max:100',
+            'description_en' => 'required',
+            'description_ar' => 'required',
         ]);
 
         if ($request->hasFile('image')) {
@@ -85,9 +96,15 @@ class BlogController extends Controller
 
         // 3. store in database
         $blog->update([
-            'title' => $request->title,
+            'title' => [
+                'en' => $request->title_en,
+                'ar' => $request->title_ar,
+            ],
             'image' => $path ?? $blog->image,
-            'description' => $request->description
+            'description' => [
+                'en' => $request->description_en,
+                'ar' => $request->description_ar,
+            ]
         ]);
 
         // 4. redirect with message

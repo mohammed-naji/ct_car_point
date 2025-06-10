@@ -37,7 +37,7 @@
                             <td>{{ $blog->id }}</td>
                             <td><img width="80" class="img-thumbnail" src="{{ asset('storage/' . $blog->image) }}"
                                     alt=""></td>
-                            <td>{{ $blog->title }}</td>
+                            <td>{{ $blog->trans_title }}</td>
                             <td>{{ $blog->created_at->toDateString() }}</td>
                             <td>
                                 <a class="btn btn-sm btn-primary" href="{{ route('dashboard.blogs.edit', $blog->id) }}"><i

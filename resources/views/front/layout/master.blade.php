@@ -119,10 +119,11 @@
             <i class='bx bx-search' id="search-icon"></i>
 
             <!-- Search Box -->
-
             <div class="search-box container">
 
-                <input type="search" name="" id="" placeholder="Search here...">
+                <form action="{{ route('front.search') }}" method="GET">
+                    <input type="search" name="q" placeholder="Search here..." value="{{ request()->q }}">
+                </form>
 
             </div>
 

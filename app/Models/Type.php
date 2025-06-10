@@ -16,6 +16,7 @@ class Type extends Model
             'name' => 'array',
         ];
     }
+
     function parts()
     {
         return $this->hasMany(Part::class);

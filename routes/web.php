@@ -9,7 +9,8 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
     Route::get('/', [FrontController::class, 'index'])->name('front.index');
     Route::get('/type/{type}', [FrontController::class, 'type'])->name('front.type');
     Route::get('/part/{part}', [FrontController::class, 'part'])->name('front.part');
-    Route::get('/blog/{id}', [FrontController::class, 'blog'])->name('front.blog');
+    Route::get('/blog/{blog:slug}', [FrontController::class, 'blog'])->name('front.blog');
+    Route::get('/search', [FrontController::class, 'search'])->name('front.search');
 });
 
 // Route::get('/dashboard', function () {

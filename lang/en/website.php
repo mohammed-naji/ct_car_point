@@ -22,7 +22,10 @@ return [
     'parts_desc' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, doloremque.',
     'buy_now' => 'Buy Now',
     'view' => 'View Details',
-    'related' => 'Related Parts'
-
+    'related' => 'Related Parts',
+    'blog_subtitle' => 'Blog & News',
+    'blog_title' => 'Our Blog Content',
+    'blog_desc' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto, doloremque.',
+    'read_more' => 'Read More'
 
 ];

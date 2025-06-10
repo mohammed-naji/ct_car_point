@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Part;
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -13,8 +14,9 @@ class FrontController extends Controller
     {
         $types = Type::latest()->get();
         $parts = Part::latest()->get();
+        $blogs = Blog::latest()->get();
 
-        return view('front.index', compact('types', 'parts'));
+        return view('front.index', compact('types', 'parts', 'blogs'));
     }
 
     function type(Type $type)
@@ -32,8 +34,19 @@ class FrontController extends Controller
         return view('front.part', compact('part', 'related'));
     }
 
-    function blog($id)
+    function blog(Blog $blog)
     {
-        return view('front.blog');
+        // $blog = Blog::where('slug', $slug)->first();
+        return view('front.blog', compact('blog'));
+    }
+
+    function search(Request $request)
+    {
+        $local = App::getLocale();
+        $parts = Part::where("name->$local", 'like', '%' . $request->q . '%')
+            ->orWhere("description->$local", 'like', '%' . $request->q . '%')
+            ->get();
+
+        return view('front.search', compact('parts'));
     }
 }

@@ -28,6 +28,11 @@ class DashboardController extends Controller
             $data['logo'] = $path;
         }
 
+        if ($request->hasFile('about_image')) {
+            $path = $request->file('about_image')->store('uploads', 'public');
+            $data['about_image'] = $path;
+        }
+
         foreach ($data as $key => $val) {
             Setting::updateOrCreate([
                 'key' => $key
