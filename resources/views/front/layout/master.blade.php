@@ -7,6 +7,7 @@
     <meta charset="UTF-8">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -38,6 +39,11 @@
     @endif
 
     <style>
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+        }
+
         .parts-container .box del {
             text-decoration: line-through;
             font-size: 14px;
@@ -176,6 +182,10 @@
         <p>&#169; Farah Elhello </p>
     </div>
     <!-- Link To Js -->
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe("{{ env('STRIPE_KEY') }}");
+    </script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
     @yield('js')
 </body>

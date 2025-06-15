@@ -16,7 +16,19 @@
 
     <i class='bx bxs-star'>({{ $part->reviews->count() }} Reviews)</i>
 
-    <a href="#" class="btn">{{ __('website.buy_now') }}</a>
+    <div>
+        @auth
+            <a href="/pay" class="btn pay-btn" data-id="{{ $part->id }}">
+                {{ __('website.buy_now') }}
+            </a>
+        @endauth
+
+        @guest
+            <a href="{{ route('login') }}" class="btn">
+                {{ __('website.buy_now') }}
+            </a>
+        @endguest
+    </div>
 
     <a href="{{ route('front.part', $part->id) }}" class="details">{{ __('website.view') }}</a>
 
