@@ -103,8 +103,8 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
-        <a class="nav-link" href="{{ route('dashboard') }}">
+    <li class="nav-item {{ str_contains(request()->url(), 'dashboard/payments') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('dashboard.payments') }}">
             <i class="fas fa-fw fa-credit-card"></i>
             <span>Payments</span></a>
     </li>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Payment;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -45,5 +46,19 @@ class DashboardController extends Controller
             ->back()
             ->with('msg', 'Settings updated successfully')
             ->with('type', 'info');;
+    }
+
+    function payments()
+    {
+        $payments = Payment::latest()->paginate(10);
+
+        return view('dashboard.payments', compact('payments'));
+    }
+
+    function payments_details($id)
+    {
+        $payment = Payment::findOrFail($id);
+
+        return view('dashboard.payments_details', compact('payment'));
     }
 }

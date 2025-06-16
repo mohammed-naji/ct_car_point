@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Part;
 use App\Models\Payment;
+use App\Models\User;
+use App\Notifications\NewPaymentNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
 use Stripe\Checkout\Session;
 use Stripe\Stripe;
 
@@ -43,6 +46,11 @@ class PaymentController extends Controller
             'success_url' => route('front.success', ['payment' =>  $payment->id]),
             'cancel_url' => route('front.cancel', ['payment' =>  $payment->id]),
         ]);
+
+        // send notification
+        $admins = User::where('role', 'admin')->get();
+        // $user->notify(new NewPaymentNotification());
+        Notification::send($admins, new NewPaymentNotification($payment));
 
         return response()->json(['session_id' => $session->id]);
     }
