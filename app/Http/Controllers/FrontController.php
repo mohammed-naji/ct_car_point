@@ -7,6 +7,7 @@ use App\Models\Part;
 use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Http;
 
 class FrontController extends Controller
 {
@@ -48,5 +49,12 @@ class FrontController extends Controller
             ->get();
 
         return view('front.search', compact('parts'));
+    }
+
+    function blogs()
+    {
+        $blogs = Http::get('https://dummyjson.com/posts?limit=12')->json();
+        // dd($blogs['posts']);
+        return view('front.blogs', compact('blogs'));
     }
 }

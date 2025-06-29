@@ -12,6 +12,7 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
     Route::get('/part/{part}', [FrontController::class, 'part'])->name('front.part');
     Route::get('/blog/{blog:slug}', [FrontController::class, 'blog'])->name('front.blog');
     Route::get('/search', [FrontController::class, 'search'])->name('front.search');
+    Route::get('/blogs', [FrontController::class, 'blogs'])->name('front.blogs');
 
 
     // Payment Routes

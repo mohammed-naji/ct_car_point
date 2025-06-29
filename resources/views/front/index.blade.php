@@ -7,6 +7,12 @@
         .home-text h1 {
             width: 60%;
         }
+
+        #weather {
+            display: flex;
+            align-items: center;
+            gap: 20px
+        }
     </style>
 
     @if (app()->getLocale() == 'ar')
@@ -126,4 +132,55 @@
 
         </div>
     </section>
+
+    <!-- Weather -->
+    <section class="weather container" id="weather">
+        <img width="60" id="weather_img" src="" alt="">
+        <div>
+            <p>{{ now()->format('M d, h:ma') }}</p>
+            <h2 id="location"></h2>
+            <p><span id="temp"></span>°C</p>
+        </div>
+    </section>
+@endsection
+
+@section('js')
+    <script src="http://www.geoplugin.net/javascript.gp" type="text/javascript"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function waitForGeoPlugin(retries = 10) {
+                if (typeof geoplugin_countryName === "function") {
+                    const country = geoplugin_countryName();
+                    const countryCode = geoplugin_countryCode();
+                    const city = geoplugin_city();
+                    // get the country weather
+                    let url =
+                        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=f8f80b0e0f5a492d43c822da6c23328b`
+
+                    // AJAX
+                    // jQuery, fetch, axios
+                    fetch(url)
+                        .then(res => res.json())
+                        .then(data => {
+                            document.querySelector('#location').innerHTML =
+                                `${city}, ${country}, ${countryCode}`
+                            document.querySelector('#temp').innerHTML = Math.ceil(data.main.temp)
+                            let img_url = `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
+                            document.querySelector('#weather_img').src = img_url
+                        }).catch((err) => {
+                            console.log(err);
+
+                        });
+
+                } else if (retries > 0) {
+                    setTimeout(() => waitForGeoPlugin(retries - 1), 200);
+                } else {
+                    console.error("GeoPlugin script did not load in time.");
+                }
+            }
+
+            waitForGeoPlugin();
+        });
+    </script>
+
 @endsection
