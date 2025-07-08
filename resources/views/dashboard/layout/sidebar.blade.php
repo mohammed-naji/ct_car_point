@@ -110,6 +110,38 @@
     </li>
 
     <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <li
+        class="nav-item {{ request()->routeIs('dashboard.roles.index') || request()->routeIs('dashboard.roles.create') ? 'active' : '' }}">
+        <a class="nav-link {{ request()->routeIs('dashboard.roles.index') || request()->routeIs('dashboard.roles.create') ? '' : 'collapsed' }}"
+            href="#" data-toggle="collapse" data-target="#collapseRoles" aria-expanded="true"
+            aria-controls="collapseRoles">
+            <i class="fas fa-fw fa-lock"></i>
+            <span>Roles</span>
+        </a>
+        <div id="collapseRoles"
+            class="collapse {{ request()->routeIs('dashboard.roles.index') || request()->routeIs('dashboard.roles.create') ? 'show' : '' }}"
+            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item {{ request()->routeIs('dashboard.roles.index') ? 'active' : '' }}"
+                    href="{{ route('dashboard.roles.index') }}">All Roles</a>
+                <a class="collapse-item {{ request()->routeIs('dashboard.roles.create') ? 'active' : '' }}"
+                    href="{{ route('dashboard.roles.create') }}">Add New</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <li class="nav-item {{ str_contains(request()->url(), 'dashboard/admins') ? 'active' : '' }}">
+        <a class="nav-link " href="{{ route('dashboard.admins') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Admins</span></a>
+    </li>
+
+    <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
 
     <!-- Sidebar Toggler (Sidebar) -->

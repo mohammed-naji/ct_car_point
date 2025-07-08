@@ -16,7 +16,7 @@ class CheckType
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->role != 'admin') return redirect('/');
+        if (Auth::user()->type == 'customer') return redirect('/');
 
         return $next($request);
     }

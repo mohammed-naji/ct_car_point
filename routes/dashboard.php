@@ -5,6 +5,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\PartController;
 use App\Http\Controllers\Dashboard\TypeController;
 use App\Http\Controllers\Dashboard\CustomerController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -27,5 +28,9 @@ Route::prefix(LaravelLocalization::setLocale())->group(function () {
 
         Route::get('payments', [DashboardController::class, 'payments'])->name('payments');
         Route::get('payments/{id}', [DashboardController::class, 'payments_details'])->name('payments_details');
+
+        Route::resource('roles', RoleController::class);
+        Route::get('admins', [CustomerController::class, 'admins'])->name('admins');
+        Route::post('admins/{id}', [CustomerController::class, 'admin_edit']);
     });
 });
