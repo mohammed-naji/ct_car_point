@@ -5,9 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
+    function __construct()
+    {
+        if (Auth::user()->type != 'superadmin') {
+            abort(403, 'Unauthorized');
+        }
+    }
     /**
      * Display a listing of the resource.
      */

@@ -21,6 +21,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
+
     <!-- Nav Item - Pages Collapse Menu -->
     <li
         class="nav-item {{ request()->routeIs('dashboard.types.index') || request()->routeIs('dashboard.types.create') ? 'active' : '' }}">
@@ -34,13 +35,19 @@
             class="collapse {{ request()->routeIs('dashboard.types.index') || request()->routeIs('dashboard.types.create') ? 'show' : '' }}"
             aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ request()->routeIs('dashboard.types.index') ? 'active' : '' }}"
-                    href="{{ route('dashboard.types.index') }}">All Types</a>
-                <a class="collapse-item {{ request()->routeIs('dashboard.types.create') ? 'active' : '' }}"
-                    href="{{ route('dashboard.types.create') }}">Add New</a>
+                @can('show_types')
+                    <a class="collapse-item {{ request()->routeIs('dashboard.types.index') ? 'active' : '' }}"
+                        href="{{ route('dashboard.types.index') }}">All Types</a>
+                @endcan
+                @can('add_type')
+                    <a class="collapse-item {{ request()->routeIs('dashboard.types.create') ? 'active' : '' }}"
+                        href="{{ route('dashboard.types.create') }}">Add New</a>
+                @endcan
+
             </div>
         </div>
     </li>
+
 
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
@@ -109,37 +116,39 @@
             <span>Payments</span></a>
     </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+    @if (Auth::user()->type == 'superadmin')
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
 
-    <li
-        class="nav-item {{ request()->routeIs('dashboard.roles.index') || request()->routeIs('dashboard.roles.create') ? 'active' : '' }}">
-        <a class="nav-link {{ request()->routeIs('dashboard.roles.index') || request()->routeIs('dashboard.roles.create') ? '' : 'collapsed' }}"
-            href="#" data-toggle="collapse" data-target="#collapseRoles" aria-expanded="true"
-            aria-controls="collapseRoles">
-            <i class="fas fa-fw fa-lock"></i>
-            <span>Roles</span>
-        </a>
-        <div id="collapseRoles"
-            class="collapse {{ request()->routeIs('dashboard.roles.index') || request()->routeIs('dashboard.roles.create') ? 'show' : '' }}"
-            aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item {{ request()->routeIs('dashboard.roles.index') ? 'active' : '' }}"
-                    href="{{ route('dashboard.roles.index') }}">All Roles</a>
-                <a class="collapse-item {{ request()->routeIs('dashboard.roles.create') ? 'active' : '' }}"
-                    href="{{ route('dashboard.roles.create') }}">Add New</a>
+        <li
+            class="nav-item {{ request()->routeIs('dashboard.roles.index') || request()->routeIs('dashboard.roles.create') ? 'active' : '' }}">
+            <a class="nav-link {{ request()->routeIs('dashboard.roles.index') || request()->routeIs('dashboard.roles.create') ? '' : 'collapsed' }}"
+                href="#" data-toggle="collapse" data-target="#collapseRoles" aria-expanded="true"
+                aria-controls="collapseRoles">
+                <i class="fas fa-fw fa-lock"></i>
+                <span>Roles</span>
+            </a>
+            <div id="collapseRoles"
+                class="collapse {{ request()->routeIs('dashboard.roles.index') || request()->routeIs('dashboard.roles.create') ? 'show' : '' }}"
+                aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item {{ request()->routeIs('dashboard.roles.index') ? 'active' : '' }}"
+                        href="{{ route('dashboard.roles.index') }}">All Roles</a>
+                    <a class="collapse-item {{ request()->routeIs('dashboard.roles.create') ? 'active' : '' }}"
+                        href="{{ route('dashboard.roles.create') }}">Add New</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
 
-    <li class="nav-item {{ str_contains(request()->url(), 'dashboard/admins') ? 'active' : '' }}">
-        <a class="nav-link " href="{{ route('dashboard.admins') }}">
-            <i class="fas fa-fw fa-users"></i>
-            <span>Admins</span></a>
-    </li>
+        <li class="nav-item {{ str_contains(request()->url(), 'dashboard/admins') ? 'active' : '' }}">
+            <a class="nav-link " href="{{ route('dashboard.admins') }}">
+                <i class="fas fa-fw fa-users"></i>
+                <span>Admins</span></a>
+        </li>
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
